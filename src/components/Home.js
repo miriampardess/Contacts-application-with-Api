@@ -39,14 +39,6 @@ function Home(props) {
             // deleteContact(res.data);
         })
     }
-    // var array = [...contactsList]; // make a separate copy of the array 
-    // array.splice(index, 1);       //Searching by unique ID
-    // setContactsList(array);
-    //Checking the length of the array
-    function listLength() {
-        return contactsList.length;
-    }
-
     function fillContactId(newContact) {
         newContact.img(contactsList[newContact.id].img);
         newContact.name(contactsList[newContact.id].name);
@@ -54,12 +46,25 @@ function Home(props) {
         if (contactsList[newContact.id].title)
             newContact.title(contactsList[newContact.id].title);
     }
-    // copy of the List
-    function copyList(array, id, newContact) {
-        array = [...contactsList]; // make a separate copy of the List
-        array[id] = newContact;
-        setContactsList(array);
+    function fillContact(newContact,id) {
+        let data = { newContact };
+        let idsend = { id };
+        axios.put('http://localhost:3000/api/putContacts', { data,idsend }).then(res => {
+            console.log(res.data);
+            setContactsList(res.data)
+        })
     }
+
+    //Checking the length of the array
+    function listLength() {
+        return contactsList.length;
+    }
+
+    // copy of the List
+    function copyList(id, newContact) {
+        fillContact(newContact,id)
+    }
+
     //Random function-Number and gender 
     function randomImg() {
         setRandomNumber(Math.floor((Math.random() * 100) + 1));

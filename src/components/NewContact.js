@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import './CSS.css';
 import { FiRefreshCw } from 'react-icons/fi'
-import { useLocation, Link, useHref } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import axios from 'axios'
 function NewContact(props) {
 
     //Variable from parent
     const { copyList, randomImg, addToArray, listLength, fillContactId } = props;
     //New contact
-    const [newContact, setNewContact] = useState({ name: "", phone: "", title: "", img: "" })
+    const [newContact, setNewContact] = useState({ name: "", phone:"", title: "", img: "" })
     //Contats Length
     let [contatsLength, setContatsLength] = useState(3);
 
@@ -73,6 +73,18 @@ function NewContact(props) {
         else {
             let newContact = { "id": id2, "img": setImg, "name": setName, "phone": setPhone, "title": setTitle }
             fillContactId(newContact);
+
+            // let nameFill = setName.name;
+            // let phoneFill = setPhone.phone;
+            // let imgFill = setImg.src;
+            // let titleFill = setTitle.title;
+            // console.log("phone",setPhone.number);
+            // console.log("phone",setPhone.phone);
+
+            // let newContact = { "id": id2, "img": setImg, "name": setName, "phone": setPhone, "title": setTitle }
+            // let newContact = { "id": id2, "img": imgRef.current.src, "name": setName.name, "phone": setPhone, "title": setTitle }
+            // let newContact = { "img": imgRef.current.src, "name": name, "phone": phone, "title": title }
+
         }
     }
 
@@ -96,8 +108,7 @@ function NewContact(props) {
         else {
             if (contactIdValid && name !== "" && phone !== "" && title !== "") {
                 let newContact = { "img": imgRef.current.src, "name": name, "phone": phone, "title": title }
-                var array;
-                copyList(array, id, newContact);
+                copyList(id, newContact);
 
             }
         }
@@ -105,7 +116,6 @@ function NewContact(props) {
     }
     //Validation on the Name
     function ValidationName(e) {
-
         setflagValidName(false)
         if (e.length > 0) {
             setflagValidName(true)
@@ -131,6 +141,7 @@ function NewContact(props) {
 
         if (!phoneno.test(phoneNumber)) {
             setValidPhone("The number is invalid")
+            
             setPhone();
             setflagValidPhone(false)
         }
@@ -139,6 +150,7 @@ function NewContact(props) {
                 setNewContact({ ...newContact, phone: e })
             }
             setValidPhone("")
+            
             setPhone(e);
         }
 

@@ -15,7 +15,6 @@ function Contacts(props) {
 
     //Add a random contact-refresh button
     function randomContact() {
-        debugger
         fetch('https://randomuser.me/api/')
             .then(response => response.json())
             .then(data => {
